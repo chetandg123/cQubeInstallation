@@ -1,7 +1,7 @@
 #!/bin/bash
 config_file="./config.yml"
 remove_config_file="./config.yml"
-actual_output_file="../../../../cQubeInstallation/outputCheckFile.txt"
+actual_output_file="../../../Logs/installation_logs.txt"
 config_template="./config.yml.template"
 new_config_file="./config.yml"
 filled_config_file="../../../../cQubeInstallation/Fill_config_file.yml"
@@ -11,7 +11,7 @@ source_to_copy_infra_parameter_file="../../../../cQubeInstallation/infra_paramet
 destination_to_copy_infra_parameter_file="../../development/python/infra_parameters.txt"
 source_to_copy_cQube_raw_data_fetch_parameters_file="../../../../cQubeInstallation/cQube-raw-data-fetch-parameters.txt"
 destination_to_copy_cQube_raw_data_fetch_parameters_file="../../development/python/cQube-raw-data-fetch-parameters.txt"
-test_result_file="../../../TestResult/output.txt"
+test_result_file="../../../TestResult/test_status_file.txt"
 s3_access_key=""
 s3_secret_key=""
 
