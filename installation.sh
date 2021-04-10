@@ -578,17 +578,17 @@ else
 fi
 echo "********Checking session_timeout by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-#echo "${txtblue}Test Case:21********Filling the valid parameters in the config.yml file testing is started****************""${txtrst}" >> "$test_result_file"
-#remove_config_file
-#copy_filled_config_file
-#sudo ./install.sh | tee "$actual_output_file"
-#msg="CQube installed successfully!!"
-#remove_whitespace "$msg"
-#check_error_messages $after_removal_of_space
-#if [ $? = 1 ]
-#then
-#  echo "${txtgreen}cQube installed successfully!.."${txtrst}" >> "$test_result_file"
-#else
-#  echo "${txtred}cQube is not installed successfully""${txtrst}" >> "$test_result_file"
-#fi
-#echo "********Filling the valid parameters in the config.yml file testing is completed****************" >> "$test_result_file"
+echo "${txtblue}Test Case:21********Filling the valid parameters in the config.yml file testing is started****************""${txtrst}" >> "$test_result_file"
+remove_config_file
+copy_filled_config_file
+sudo ./install.sh | tee "$actual_output_file"
+msg="CQube installed successfully!!"
+remove_whitespace "$msg"
+check_error_messages $after_removal_of_space
+if [ $? = 1 ]
+then
+  echo "${txtgreen}cQube installed successfully!.."${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}cQube is not installed successfully""${txtrst}" >> "$test_result_file"
+fi
+echo "********Filling the valid parameters in the config.yml file testing is completed****************" >> "$test_result_file"
