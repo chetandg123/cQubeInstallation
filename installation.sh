@@ -1,16 +1,16 @@
 #!/bin/bash
 config_file="./config.yml"
 remove_config_file="./config.yml"
-actual_output_file="../../../cQubeInstallation/outputCheckFile.txt"
+actual_output_file="../../../../cQubeInstallation/outputCheckFile.txt"
 config_template="./config.yml.template"
 new_config_file="./config.yml"
-filled_config_file="../../../cQubeInstallation/Fill_config_file.yml"
-source_to_copy_infra_structure_master="../../../cQubeInstallation/infrastructure_master.csv"
-destination_to_copy_infra_structure_master="../../cQube/development/postgres/infrastructure_master.csv"
-source_to_copy_infra_parameter_file="../../../cQubeInstallation/infra_parameters.txt"
-destination_to_copy_infra_parameter_file="../../cQube/development/python/infra_parameters.txt"
-source_to_copy_cQube_raw_data_fetch_parameters_file="../../../cQubeInstallation/cQube-raw-data-fetch-parameters.txt"
-destination_to_copy_cQube_raw_data_fetch_parameters_file="../../cQube/development/python/cQube-raw-data-fetch-parameters.txt"
+filled_config_file="../../../../cQubeInstallation/Fill_config_file.yml"
+source_to_copy_infra_structure_master="../../../../cQubeInstallation/infrastructure_master.csv"
+destination_to_copy_infra_structure_master="../../development/postgres/infrastructure_master.csv"
+source_to_copy_infra_parameter_file="../../../../cQubeInstallation/infra_parameters.txt"
+destination_to_copy_infra_parameter_file="../../development/python/infra_parameters.txt"
+source_to_copy_cQube_raw_data_fetch_parameters_file="../../../../cQubeInstallation/cQube-raw-data-fetch-parameters.txt"
+destination_to_copy_cQube_raw_data_fetch_parameters_file="../../development/python/cQube-raw-data-fetch-parameters.txt"
 test_result_file="../../../TestResult/output.txt"
 s3_access_key=""
 s3_secret_key=""
@@ -267,17 +267,6 @@ then
 else
   echo "${txtred}keycloak_config_otp message is not displayed""${txtrst}" >> "$test_result_file"
 fi
-
-msg="Config file has errors. Please rectify the issues and restart the installation"
-remove_whitespace "$msg"
-check_error_messages $after_removal_of_space
-if [ $? = 1 ]
-then
-  echo "${txtgreen}Config file has errors error message is displayed""${txtrst}" >> "$test_result_file"
-else
-  echo "${txtred}Config file has errors message is not displayed""${txtrst}" >> "$test_result_file"
-fi
-echo "********Checking error messages without filling config.yml testing is completed**********" >> "$test_result_file"
 
 echo "${txtblue}Test Case:2********Checking state_code by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
