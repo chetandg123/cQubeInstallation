@@ -1,17 +1,17 @@
 #!/bin/bash
-config_file="/home/ubuntu/cQube/ansible/installation_scripts/config.yml"
-remove_config_file="/home/ubuntu/cQube/ansible/installation_scripts/config.yml"
-actual_output_file="/home/ubuntu/outputCheckFile.txt"
-config_template="/home/ubuntu/cQube/ansible/installation_scripts/config.yml.template"
-new_config_file="/home/ubuntu/cQube/ansible/installation_scripts/config.yml"
-filled_config_file="/home/ubuntu/cQubeInstallation/Fill_config_file.yml"
-source_to_copy_infra_structure_master="/home/ubuntu/cQubeInstallation/infrastructure_master.csv"
-destination_to_copy_infra_structure_master="/home/ubuntu/cQube/development/postgres/infrastructure_master.csv"
-source_to_copy_infra_parameter_file="/home/ubuntu/cQubeInstallation/infra_parameters.txt"
-destination_to_copy_infra_parameter_file="/home/ubuntu/cQube/development/python/infra_parameters.txt"
-source_to_copy_cQube_raw_data_fetch_parameters_file="/home/ubuntu/cQubeInstallation/cQube-raw-data-fetch-parameters.txt"
-destination_to_copy_cQube_raw_data_fetch_parameters_file="/home/ubuntu/cQube/development/python/cQube-raw-data-fetch-parameters.txt"
-test_result_file="/home/ubuntu/output.txt"
+config_file="./config.yml"
+remove_config_file="./config.yml"
+actual_output_file="../../../cQubeInstallation/outputCheckFile.txt"
+config_template="./config.yml.template"
+new_config_file="./config.yml"
+filled_config_file="../../../cQubeInstallation/Fill_config_file.yml"
+source_to_copy_infra_structure_master="../../../cQubeInstallation/infrastructure_master.csv"
+destination_to_copy_infra_structure_master="../../cQube/development/postgres/infrastructure_master.csv"
+source_to_copy_infra_parameter_file="../../../cQubeInstallation/infra_parameters.txt"
+destination_to_copy_infra_parameter_file="../../cQube/development/python/infra_parameters.txt"
+source_to_copy_cQube_raw_data_fetch_parameters_file="../../../cQubeInstallation/cQube-raw-data-fetch-parameters.txt"
+destination_to_copy_cQube_raw_data_fetch_parameters_file="../../cQube/development/python/cQube-raw-data-fetch-parameters.txt"
+test_result_file="../../../TestResult/output.txt"
 s3_access_key=""
 s3_secret_key=""
 
@@ -73,9 +73,8 @@ txtrst=$(tput sgr0) # Text reset
 txtred=$(tput setaf 1) # Red
 txtgreen=$(tput setaf 10) #green
 txtblue=$(tput setaf 21) #blue
-cd ~/
 git clone https://github.com/project-sunbird/cQube.git
-cd /home/ubuntu/cQube/ansible/installation_scripts/
+cd cQube/ansible/installation_scripts/
 sudo git checkout cQube-release-qa
 cp config.yml.template config.yml
 remove_infrastructure_file
@@ -591,17 +590,17 @@ else
 fi
 echo "********Checking session_timeout by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "${txtblue}Test Case:21********Filling the valid parameters in the config.yml file testing is started****************""${txtrst}" >> "$test_result_file"
-remove_config_file
-copy_filled_config_file
-sudo ./install.sh | tee "$actual_output_file"
-msg="CQube installed successfully!!"
-remove_whitespace "$msg"
-check_error_messages $after_removal_of_space
-if [ $? = 1 ]
-then
-  echo "${txtgreen}cQube installed successfully!.."${txtrst}" >> "$test_result_file"
-else
-  echo "${txtred}cQube is not installed successfully""${txtrst}" >> "$test_result_file"
-fi
-echo "********Filling the valid parameters in the config.yml file testing is completed****************" >> "$test_result_file"
+#echo "${txtblue}Test Case:21********Filling the valid parameters in the config.yml file testing is started****************""${txtrst}" >> "$test_result_file"
+#remove_config_file
+#copy_filled_config_file
+#sudo ./install.sh | tee "$actual_output_file"
+#msg="CQube installed successfully!!"
+#remove_whitespace "$msg"
+#check_error_messages $after_removal_of_space
+#if [ $? = 1 ]
+#then
+#  echo "${txtgreen}cQube installed successfully!.."${txtrst}" >> "$test_result_file"
+#else
+#  echo "${txtred}cQube is not installed successfully""${txtrst}" >> "$test_result_file"
+#fi
+#echo "********Filling the valid parameters in the config.yml file testing is completed****************" >> "$test_result_file"
