@@ -71,7 +71,9 @@ check_error_messages()
 }
 txtrst=$(tput sgr0) # Text reset
 txtred=$(tput setaf 1) # Red
-
+txtgreen=$(tput setaf 10) #green
+txtblue=$(tput setaf 21) #blue
+cd ~/
 git clone https://github.com/project-sunbird/cQube.git
 cd /home/ubuntu/cQube/ansible/installation_scripts/
 sudo git checkout cQube-release-qa
@@ -82,16 +84,17 @@ remove_infra_parameter_file
 copy_infra_parameter_file
 remove_cQube_raw_data_fetch_parameters_file
 copy_cQube_raw_data_fetch_parameters_file
+sleep 60
 sudo ./install.sh
 sudo ./validate.sh | tee "$actual_output_file"
 
-echo "Test Case:1********Checking error messages without filling config.yml testing is started**********" >> "$test_result_file"
+echo "${txtblue}Test Case:1********Checking error messages without filling config.yml testing is started**********""${txtrst}" >> "$test_result_file"
 msg="Error - in state_code. Unable to get the value. Please check."
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "state_code error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}state_code error message is displayed""${txtrst}" >> "$test_result_file"
 else
   echo "${txtred}state_code error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
@@ -101,9 +104,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "static_datasource error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}static_datasource error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "static_datasource error message is not displayed" >> "$test_result_file"
+  echo "${txtred}static_datasource error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in management. Unable to get the value. Please check."
@@ -111,9 +114,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "management error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}management error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "management error message is not displayed" >> "$test_result_file"
+  echo "${txtred}management error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in system_user_name. Unable to get the value. Please check."
@@ -121,9 +124,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "system_username error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}system_username error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "system_username error message is not displayed" >> "$test_result_file"
+  echo "${txtred}system_username error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in db_password. Unable to get the value. Please check."
@@ -131,9 +134,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "db_password error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}db_password error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "db_password error message is not displayed" >> "$test_result_file"
+  echo "${txtred}db_password error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in read_only_db_user. Unable to get the value. Please check."
@@ -141,9 +144,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "read_only_db_user error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}read_only_db_user error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "read_only_db_user message is not displayed" >> "$test_result_file"
+  echo "${txtred}read_only_db_user message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in read_only_db_password. Unable to get the value. Please check."
@@ -151,9 +154,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "read_only_db_password error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}read_only_db_password error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "read_only_db_password message is not displayed" >> "$test_result_file"
+  echo "${txtred}read_only_db_password message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in s3_access_key. Unable to get the value. Please check."
@@ -161,9 +164,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "s3_access_key error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}s3_access_key error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "s3_access_key message is not displayed" >> "$test_result_file"
+  echo "${txtred}s3_access_key message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in s3_secret_key. Unable to get the value. Please check."
@@ -171,9 +174,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "s3_secret_key error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}s3_secret_key error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "s3_secret_key message is not displayed" >> "$test_result_file"
+  echo "${txtred}s3_secret_key message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in s3_input_bucket. Unable to get the value. Please check."
@@ -181,9 +184,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "s3_input_bucket error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}s3_input_bucket error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "s3_input_bucket message is not displayed" >> "$test_result_file"
+  echo "${txtred}s3_input_bucket message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in s3_output_bucket. Unable to get the value. Please check."
@@ -191,9 +194,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "s3_output_bucket error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}s3_output_bucket error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "s3_output_bucket message is not displayed" >> "$test_result_file"
+  echo "${txtred}s3_output_bucket message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in s3_emission_bucket. Unable to get the value. Please check."
@@ -201,9 +204,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "s3_emission_bucket error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}s3_emission_bucket error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "s3_emission_bucket message is not displayed" >> "$test_result_file"
+  echo "${txtred}s3_emission_bucket message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in local_ipv4_address. Unable to get the value. Please check."
@@ -211,9 +214,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "local_ipv4_address error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}local_ipv4_address error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "local_ipv4_address message is not displayed" >> "$test_result_file"
+  echo "${txtred}local_ipv4_address message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in vpn_local_ipv4_address. Unable to get the value. Please check."
@@ -221,9 +224,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "vpn_local_ipv4_address error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}vpn_local_ipv4_address error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "vpn_local_ipv4_address message is not displayed" >> "$test_result_file"
+  echo "${txtred}vpn_local_ipv4_address message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in api_endpoint. Unable to get the value. Please check."
@@ -231,9 +234,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "api_endpoint error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}api_endpoint error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "api_endpoint message is not displayed" >> "$test_result_file"
+  echo "${txtred}api_endpoint message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in keycloak_adm_passwd. Unable to get the value. Please check."
@@ -241,9 +244,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "keycloak_adm_passwd error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}keycloak_adm_passwd error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "keycloak_adm_passwd message is not displayed" >> "$test_result_file"
+  echo "${txtred}keycloak_adm_passwd message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in keycloak_adm_user. Unable to get the value. Please check."
@@ -251,9 +254,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "keycloak_adm_user error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}keycloak_adm_user error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "keycloak_adm_user message is not displayed" >> "$test_result_file"
+  echo "${txtred}keycloak_adm_user message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in keycloak_config_otp. Unable to get the value. Please check."
@@ -261,9 +264,9 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "keycloak_config_otp error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}keycloak_config_otp error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "keycloak_config_otp message is not displayed" >> "$test_result_file"
+  echo "${txtred}keycloak_config_otp message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Config file has errors. Please rectify the issues and restart the installation"
@@ -271,13 +274,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Config file has errors error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Config file has errors error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Config file has errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Config file has errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking error messages without filling config.yml testing is completed**********" >> "$test_result_file"
 
-echo "Test Case:2********Checking state_code by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:2********Checking state_code by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/state_code:/state_code: gujarath/g' "$config_file"
@@ -287,13 +290,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid State code error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid State code error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid State code errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid State code errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking state_code by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:3********Checking diksha_columns by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:3********Checking diksha_columns by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/diksha_columns: false/diksha_columns: False/g' "$config_file"
@@ -303,13 +306,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid diksha_columns error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid diksha_columns error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid diksha_columns errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid diksha_columns errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking diksha_columns by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:4********Checking static_datasource by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:4********Checking static_datasource by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/static_datasource:/static_datasource: xyz/g' "$config_file"
@@ -319,13 +322,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid static_datasource error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid static_datasource error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid static_datasource errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid static_datasource errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking static_datasource by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:5********Checking system_user_name by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:5********Checking system_user_name by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/system_user_name:/system_user_name: xyz/g' "$config_file"
@@ -335,13 +338,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid system_user_name error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid system_user_name error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid system_user_name errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid system_user_name errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking system_user_name by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:6********Checking db_name by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:6********Checking db_name by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/db_name: cqube_db/db_name: 123/g' "$config_file"
@@ -351,13 +354,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid db_name error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid db_name error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid db_name errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid db_name errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking db_name by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:7********Checking db_password by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:7********Checking db_password by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/db_password:/db_password: cqube1@/g' "$config_file"
@@ -367,13 +370,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid db_password error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid db_password error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid db_password errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid db_password errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking db_password by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:8********Checking read_only_db_user by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:8********Checking read_only_db_user by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/read_only_db_user:/read_only_db_user: xyz123/g' "$config_file"
@@ -383,13 +386,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid read_only_db_user error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid read_only_db_user error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid read_only_db_user errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid read_only_db_user errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking read_only_db_user by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:9********Checking read_only_db_password by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:9********Checking read_only_db_password by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/read_only_db_password:/read_only_db_password: cqube1@/g' "$config_file"
@@ -399,13 +402,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid read_only_db_password error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid read_only_db_password error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid read_only_db_password errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid read_only_db_password errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking read_only_db_password by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:10********Checking s3_access_key & s3_secret_key by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:10********Checking s3_access_key & s3_secret_key by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/s3_access_key:/s3_access_key: AKIA2YWRVRZFEH7DOHEI/g' "$config_file"
@@ -416,13 +419,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid s3_access_key & s3_secret_key error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid s3_access_key & s3_secret_key error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid s3_access_key & s3_secret_key errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid s3_access_key & s3_secret_key errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking read_only_db_password by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:11********Checking s3_input_bucket by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:11********Checking s3_input_bucket by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/s3_access_key:/s3_access_key: '$s3_access_key'/g' "$config_file"
@@ -434,13 +437,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid s3_input_bucket error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid s3_input_bucket error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid s3_input_bucket errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid s3_input_bucket errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking s3_input_bucket by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:12********Checking s3_output_bucket by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:12********Checking s3_output_bucket by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/s3_access_key:/s3_access_key: '$s3_access_key'/g' "$config_file"
@@ -452,13 +455,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid s3_output_bucket error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid s3_output_bucket error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid s3_output_bucket errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid s3_output_bucket errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking s3_output_bucket by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:13********Checking s3_emission_bucket by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:13********Checking s3_emission_bucket by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/s3_access_key:/s3_access_key: '$s3_access_key'/g' "$config_file"
@@ -470,13 +473,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid s3_emission_bucket error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid s3_emission_bucket error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid s3_emission_bucket errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid s3_emission_bucket errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking s3_emission_bucket by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:14********Checking local_ipv4_address by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:14********Checking local_ipv4_address by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/local_ipv4_address:/local_ipv4_address: 172.31.11/g' "$config_file"
@@ -486,13 +489,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid local_ipv4_address error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid local_ipv4_address error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid local_ipv4_address errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid local_ipv4_address errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking local_ipv4_address by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:15********Checking vpn_local_ipv4_address by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:15********Checking vpn_local_ipv4_address by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/vpn_local_ipv4_address:/vpn_local_ipv4_address: 172.31.11/g' "$config_file"
@@ -502,13 +505,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid vpn_local_ipv4_address error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid vpn_local_ipv4_address error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid vpn_local_ipv4_address errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid vpn_local_ipv4_address errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking vpn_local_ipv4_address by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:16********Checking keycloak_adm_user by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:16********Checking keycloak_adm_user by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/keycloak_adm_user:/keycloak_adm_user: xyz123/g' "$config_file"
@@ -518,13 +521,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid keycloak_adm_user error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid keycloak_adm_user error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid keycloak_adm_user errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid keycloak_adm_user errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking keycloak_adm_user by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:17********Checking keycloak_adm_passwd by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:17********Checking keycloak_adm_passwd by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/keycloak_adm_passwd:/keycloak_adm_passwd: cqube1@/g' "$config_file"
@@ -534,13 +537,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid keycloak_adm_passwd error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid keycloak_adm_passwd error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid keycloak_adm_passwd errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid keycloak_adm_passwd errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking keycloak_adm_passwd by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:18********Checking keycloak_config_otp by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:18********Checking keycloak_config_otp by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/keycloak_config_otp:/keycloak_config_otp: False/g' "$config_file"
@@ -550,13 +553,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid keycloak_config_otp error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid keycloak_config_otp error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid keycloak_config_otp errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid keycloak_config_otp errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking keycloak_config_otp by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:19********Checking session_timeout by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:19********Checking session_timeout by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/session_timeout: 7D/session_timeout: 29M/g' "$config_file"
@@ -566,13 +569,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid session_timeout error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid session_timeout error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid session_timeout errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid session_timeout errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking session_timeout by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:20********Checking session_timeout by passing invalid parameters testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:20********Checking session_timeout by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
 sed -i 's/session_timeout: 7D/session_timeout: 3651D/g' "$config_file"
@@ -582,13 +585,13 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "Invalid session_timeout error message is displayed" >> "$test_result_file"
+  echo "${txtgreen}Invalid session_timeout error message is displayed""${txtrst}" >> "$test_result_file"
 else
-  echo "Invalid session_timeout errors message is not displayed" >> "$test_result_file"
+  echo "${txtred}Invalid session_timeout errors message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 echo "********Checking session_timeout by passing invalid parameters testing is completed****************" >> "$test_result_file"
 
-echo "Test Case:21********Filling the valid parameters in the config.yml file testing is started****************" >> "$test_result_file"
+echo "${txtblue}Test Case:21********Filling the valid parameters in the config.yml file testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_filled_config_file
 sudo ./install.sh | tee "$actual_output_file"
@@ -597,19 +600,8 @@ remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
 then
-  echo "cQube installed successfully!.." >> "$test_result_file"
+  echo "${txtgreen}cQube installed successfully!.."${txtrst}" >> "$test_result_file"
 else
-  echo "cQube is not installed successfully" >> "$test_result_file"
+  echo "${txtred}cQube is not installed successfully""${txtrst}" >> "$test_result_file"
 fi
 echo "********Filling the valid parameters in the config.yml file testing is completed****************" >> "$test_result_file"
-
-
-
-
-
-
-
-
-
-
-
