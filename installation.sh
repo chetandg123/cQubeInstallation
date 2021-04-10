@@ -11,7 +11,7 @@ source_to_copy_infra_parameter_file="../../../ConfigFiles/infra_parameters.txt"
 destination_to_copy_infra_parameter_file="../../development/python/infra_parameters.txt"
 source_to_copy_cQube_raw_data_fetch_parameters_file="../../../ConfigFiles/cQube-raw-data-fetch-parameters.txt"
 destination_to_copy_cQube_raw_data_fetch_parameters_file="../../development/python/cQube-raw-data-fetch-parameters.txt"
-test_result_file="../../../TestResult/test_status_file.txt"
+test_result_file="../../../TestResult/status_file.txt"
 s3_access_key=""
 s3_secret_key=""
 
