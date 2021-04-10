@@ -83,7 +83,6 @@ remove_infra_parameter_file
 copy_infra_parameter_file
 remove_cQube_raw_data_fetch_parameters_file
 copy_cQube_raw_data_fetch_parameters_file
-sleep 60
 sudo ./install.sh
 sudo ./validate.sh | tee "$actual_output_file"
 
