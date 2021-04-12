@@ -454,7 +454,7 @@ copy_new_config_file
 sed -i 's/s3_access_key:/s3_access_key: '$s3_access_key'/g' "$config_file"
 sed -i 's/s3_secret_key:/s3_secret_key: '$s3_secret_key'/g' "$config_file"
 sed -i 's/s3_emission_bucket:/s3_emission_bucket: cqube-z1-emission/g' "$config_file"
-sudo ./validate.sh | tee "$actual_emission_file"
+sudo ./validate.sh | tee "$actual_output_file"
 msg="Error - [ s3_emission_bucket : cqube-z1-emission ] Bucket not owned or not found. Please change the bucket name in config.yml"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -582,13 +582,13 @@ echo "${txtblue}Test Case:21********Filling the valid parameters in the config.y
 remove_config_file
 copy_filled_config_file
 sudo ./install.sh | tee "$actual_output_file"
-msg="CQube installed successfully!!"
-remove_whitespace "$msg"
-check_error_messages $after_removal_of_space
-if [ $? = 1 ]
+output=$(grep -c "CQube installed successfully!!" $actual_output_file)
+if [ $output = 1 ]
 then
-  echo "${txtgreen}cQube installed successfully!.."${txtrst}" >> "$test_result_file"
+  echo "${txtgreen}cQube installed successfully""${txtrst}" >> "$test_result_file"
 else
   echo "${txtred}cQube is not installed successfully""${txtrst}" >> "$test_result_file"
 fi
 echo "********Filling the valid parameters in the config.yml file testing is completed****************" >> "$test_result_file"
+
+
