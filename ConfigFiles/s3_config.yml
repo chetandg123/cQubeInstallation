@@ -1,2 +1,7 @@
-s3_access_key: abc
-s3_secret_key: abc@123
+---
+#------------------------------------------------------#
+#NOTE: Please fill the value with a space between ":" and the value.
+#Example-   `system_user_name: ubuntu`
+
+s3_access_key:
+s3_secret_key:
