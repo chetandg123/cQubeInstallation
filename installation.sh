@@ -12,8 +12,9 @@ destination_to_copy_infra_parameter_file="../../development/python/infra_paramet
 source_to_copy_cQube_raw_data_fetch_parameters_file="../../../ConfigFiles/cQube-raw-data-fetch-parameters.txt"
 destination_to_copy_cQube_raw_data_fetch_parameters_file="../../development/python/cQube-raw-data-fetch-parameters.txt"
 test_result_file="../../../TestResult/status_file.txt"
-s3_access_key=$(awk ''/^s3_access_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/s3_config.yml)
-s3_secret_key=$(awk ''/^s3_secret_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/s3_config.yml)
+s3_access_key=$(awk ''/^s3_access_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/installation_testing_config.yml)
+s3_secret_key=$(awk ''/^s3_secret_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/installation_testing_config.yml)
+git_branch=$(awk ''/^git_branch:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/installation_testing_config.yml)
 
 remove_config_file()
 {
@@ -75,7 +76,7 @@ txtgreen=$(tput setaf 10) #green
 txtblue=$(tput setaf 21) #blue
 git clone https://github.com/project-sunbird/cQube.git
 cd cQube/ansible/installation_scripts/
-sudo git checkout cQube-release-qa
+sudo git checkout $git_branch
 cp config.yml.template config.yml
 remove_infrastructure_file
 copy_infrastructure_file
