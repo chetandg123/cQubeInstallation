@@ -12,8 +12,8 @@ destination_to_copy_infra_parameter_file="../../development/python/infra_paramet
 source_to_copy_cQube_raw_data_fetch_parameters_file="../../../ConfigFiles/cQube-raw-data-fetch-parameters.txt"
 destination_to_copy_cQube_raw_data_fetch_parameters_file="../../development/python/cQube-raw-data-fetch-parameters.txt"
 test_result_file="../../../TestResult/status_file.txt"
-s3_access_key=""
-s3_secret_key=""
+s3_access_key=$(awk ''/^s3_access_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/s3_config.yml)
+s3_secret_key=$(awk ''/^s3_secret_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/s3_config.yml)
 
 remove_config_file()
 {
