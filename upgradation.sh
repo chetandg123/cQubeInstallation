@@ -19,39 +19,39 @@ git_branch=$(awk ''/^git_branch:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles
 
 remove_config_file()
 {
-  rm "$remove_config_file"
+  sudo rm "$remove_config_file"
 }
 copy_new_config_file()
 {
-  cp $config_template $new_config_file
+  sudo cp $config_template $new_config_file
 }
 copy_filled_config_file()
 {
-  cp $filled_config_file $new_config_file
+  sudo cp $filled_config_file $new_config_file
 }
 copy_infrastructure_file()
 {
-  cp $source_to_copy_infra_structure_master $destination_to_copy_infra_structure_master
+  sudo cp $source_to_copy_infra_structure_master $destination_to_copy_infra_structure_master
 }
 remove_infrastructure_file()
 {
-  rm $destination_to_copy_infra_structure_master
+  sudo rm $destination_to_copy_infra_structure_master
 }
 copy_infra_parameter_file()
 {
-  cp $source_to_copy_infra_parameter_file $destination_to_copy_infra_parameter_file
+  sudo cp $source_to_copy_infra_parameter_file $destination_to_copy_infra_parameter_file
 }
 remove_infra_parameter_file()
 {
-  rm $destination_to_copy_infra_parameter_file
+  sudo rm $destination_to_copy_infra_parameter_file
 }
 copy_cQube_raw_data_fetch_parameters_file()
 {
-  cp $source_to_copy_cQube_raw_data_fetch_parameters_file $destination_to_copy_cQube_raw_data_fetch_parameters_file
+  sudo cp $source_to_copy_cQube_raw_data_fetch_parameters_file $destination_to_copy_cQube_raw_data_fetch_parameters_file
 }
 remove_cQube_raw_data_fetch_parameters_file()
 {
-  rm $destination_to_copy_cQube_raw_data_fetch_parameters_file
+  sudo rm $destination_to_copy_cQube_raw_data_fetch_parameters_file
 }
 remove_whitespace()
 {
@@ -77,16 +77,16 @@ txtgreen=$(tput setaf 10) #green
 txtblue=$(tput setaf 21) #blue
 cd cQube/ansible/installation_scripts/
 sudo git stash
-sudo git pull
 sudo git checkout $git_branch
-cp upgradation_config.yml.template upgradation_config.yml
+sudo git pull
+sudo cp upgradation_config.yml.template upgradation_config.yml
 remove_infrastructure_file
 copy_infrastructure_file
 remove_infra_parameter_file
 copy_infra_parameter_file
 remove_cQube_raw_data_fetch_parameters_file
 copy_cQube_raw_data_fetch_parameters_file
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 
 echo "${txtblue}Test Case:1********Checking error messages without filling upgradation_config.yml testing is started**********""${txtrst}" >> "$test_result_file"
 msg="Error - Please enter the absolute path or make sure the directory is present."
@@ -98,13 +98,13 @@ then
 else
   echo "${txtred}enter the absolute path error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
-echo "${txtblue}Test Case:1********Checking error messages without filling upgradation_config.yml testing is started**********""${txtrst}" >> "$test_result_file"
+echo "********Checking error messages without filling upgradation_config.yml testing is started**********" >> "$test_result_file"
 
 echo "${txtblue}Test Case:2********Checking the base_dir by passing invalid parameters to the upgradation_config.yml testing is started**********""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/base_dir:/base_dir: /home/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sed -i 's/base_dir:/base_dir: \/home/g' "$config_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Invalid base_dir or Unable to find the cQube in given base_dir"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -114,13 +114,13 @@ then
 else
   echo "${txtred}Invalid base_dir error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
-echo "${txtblue}Test Case:2********Checking the base_dir by passing invalid parameters to the upgradation_config.yml testing is started**********""${txtrst}" >> "$test_result_file"
+echo "********Checking the base_dir by passing invalid parameters to the upgradation_config.yml testing is started**********" >> "$test_result_file"
 
 echo "${txtblue}Test Case:3********Checking the base_dir by passing valid parameter to the upgradation_config.yml testing is started**********""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/base_dir:/base_dir: /opt/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 
 msg="Error - in state_code. Unable to get the value. Please check."
 remove_whitespace "$msg"
@@ -301,14 +301,14 @@ then
 else
   echo "${txtred}keycloak_config_otp message is not displayed""${txtrst}" >> "$test_result_file"
 fi
-
-echo "${txtblue}Test Case:3********Checking the base_dir by passing valid parameters to the upgradation_config.yml testing is completed**********""${txtrst}" >> "$test_result_file"
+echo "********Checking the base_dir by passing valid parameters to the upgradation_config.yml testing is completed**********" >> "$test_result_file"
 
 echo "${txtblue}Test Case:4********Checking state_code by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/state_code:/state_code: gujarath/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - State code should be same as previous installation. Please refer the state_list file and enter the correct value."
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -323,8 +323,9 @@ echo "********Checking state_code by passing invalid parameters testing is compl
 echo "${txtblue}Test Case:5********Checking diksha_columns by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/diksha_columns: false/diksha_columns: False/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Please enter either true or false for diksha_columns"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -339,8 +340,9 @@ echo "********Checking diksha_columns by passing invalid parameters testing is c
 echo "${txtblue}Test Case:6********Checking static_datasource by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/static_datasource:/static_datasource: xyz/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Please enter either udise or state for static_datasource"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -355,8 +357,9 @@ echo "********Checking static_datasource by passing invalid parameters testing i
 echo "${txtblue}Test Case:7********Checking system_user_name by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/system_user_name:/system_user_name: xyz/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Please check the system_user_name."
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -371,8 +374,9 @@ echo "********Checking system_user_name by passing invalid parameters testing is
 echo "${txtblue}Test Case:8********Checking db_user by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/db_user: cqube_db/db_user: 123/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
+sed -i 's/db_user:/db_user: 123/g' "$config_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - db_user should be same as previous installation"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -388,8 +392,9 @@ echo "********Checking db_user by passing invalid parameters testing is complete
 echo "${txtblue}Test Case:9********Checking db_name by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/db_name: cqube_db/db_name: 123/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
+sed -i 's/db_name:/db_name: 123/g' "$config_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - db_name should be same as previous installation"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -404,11 +409,12 @@ echo "********Checking db_name by passing invalid parameters testing is complete
 echo "${txtblue}Test Case:10********Checking db_password by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/db_user:/db_user: cqube_db_user/g' "$config_file"
 sed -i 's/db_name:/db_name: cqube_db/g' "$config_file"
 sed -i 's/db_password:/db_password: cqube1@/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
-msg="Error - Unable to check the Postgres."
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
+msg="Error - Invalid Postgres credentials"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
@@ -422,9 +428,10 @@ echo "********Checking db_password by passing invalid parameters testing is comp
 echo "${txtblue}Test Case:11********Checking s3_access_key & s3_secret_key by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/s3_access_key:/s3_access_key: AKIA2YWRVRZFEH7DOHEI/g' "$config_file"
 sed -i 's/s3_secret_key:/s3_secret_key: yHgZxIrdhuoDhLQmPsL6UyKDKrlMPjheFSgQt2gf/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Invalid aws access or secret keys"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -439,10 +446,11 @@ echo "Checking s3_access_key & s3_secret_key by passing invalid parameters testi
 echo "${txtblue}Test Case:12********Checking s3_input_bucket by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/s3_access_key:/s3_access_key: '$s3_access_key'/g' "$config_file"
 sed -i 's/s3_secret_key:/s3_secret_key: '$s3_secret_key'/g' "$config_file"
 sed -i 's/s3_input_bucket:/s3_input_bucket: cqube-z1-input/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - s3_input_bucket must be same as previously used bucket"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -457,10 +465,11 @@ echo "********Checking s3_input_bucket by passing invalid parameters testing is 
 echo "${txtblue}Test Case:13********Checking s3_output_bucket by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/s3_access_key:/s3_access_key: '$s3_access_key'/g' "$config_file"
 sed -i 's/s3_secret_key:/s3_secret_key: '$s3_secret_key'/g' "$config_file"
 sed -i 's/s3_output_bucket:/s3_output_bucket: cqube-z1-output/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - s3_output_bucket must be same as previously used bucket"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -475,10 +484,11 @@ echo "********Checking s3_output_bucket by passing invalid parameters testing is
 echo "${txtblue}Test Case:14********Checking s3_emission_bucket by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/s3_access_key:/s3_access_key: '$s3_access_key'/g' "$config_file"
 sed -i 's/s3_secret_key:/s3_secret_key: '$s3_secret_key'/g' "$config_file"
 sed -i 's/s3_emission_bucket:/s3_emission_bucket: cqube-z1-emission/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - s3_emission_bucket must be same as previously used bucket"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -493,8 +503,9 @@ echo "********Checking s3_emission_bucket by passing invalid parameters testing 
 echo "${txtblue}Test Case:15********Checking api_endpoint by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/api_endpoint:/api_endpoint: demo1.cqube.tibilprojects.com/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Change in domain name. Please verify the api_endpoint"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -510,9 +521,10 @@ echo "********Checking api_endpoint by passing invalid parameters testing is com
 echo "${txtblue}Test Case:16********Checking local_ipv4_address by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/local_ipv4_address:/local_ipv4_address: 172.31.11/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
-msg="Error - Invalid value for local_ipv4_address. Please enter the local ip of this system."
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
+msg="Error - Invalid value for local_ipv4_address"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
 if [ $? = 1 ]
@@ -526,8 +538,9 @@ echo "********Checking local_ipv4_address by passing invalid parameters testing 
 echo "${txtblue}Test Case:17********Checking vpn_local_ipv4_address by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/vpn_local_ipv4_address:/vpn_local_ipv4_address: 172.31.11/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Invalid value for vpn_local_ipv4_address"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -542,8 +555,10 @@ echo "********Checking vpn_local_ipv4_address by passing invalid parameters test
 echo "${txtblue}Test Case:18********Checking keycloak_adm_user by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/keycloak_adm_user:/keycloak_adm_user: xyz123/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sed -i 's/keycloak_adm_passwd:/keycloak_adm_passwd: CQUBE@/g' "$config_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Invalid keycloak user or password"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -558,8 +573,10 @@ echo "********Checking keycloak_adm_user by passing invalid parameters testing i
 echo "${txtblue}Test Case:19********Checking keycloak_adm_passwd by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
+sed -i 's/keycloak_adm_user:/keycloak_adm_user: admin/g' "$config_file"
 sed -i 's/keycloak_adm_passwd:/keycloak_adm_passwd: cqube1@/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Invalid keycloak user or password"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -574,8 +591,9 @@ echo "********Checking keycloak_adm_passwd by passing invalid parameters testing
 echo "${txtblue}Test Case:20********Checking keycloak_config_otp by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/keycloak_config_otp:/keycloak_config_otp: False/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Please enter either true or false for keycloak_config_otp"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -590,8 +608,9 @@ echo "********Checking keycloak_config_otp by passing invalid parameters testing
 echo "${txtblue}Test Case:21********Checking session_timeout by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/session_timeout: 7D/session_timeout: 29M/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Minutes should be between 30 and 5256000"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -606,8 +625,9 @@ echo "********Checking session_timeout by passing invalid parameters testing is 
 echo "${txtblue}Test Case:22********Checking session_timeout by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
+sed -i 's/base_dir:/base_dir: \/opt/g' "$config_file"
 sed -i 's/session_timeout: 7D/session_timeout: 3651D/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo ./upgradation_validate.sh | tee "$actual_output_file"
 msg="Error - Days should be between 1 and 3650"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
