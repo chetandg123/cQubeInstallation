@@ -621,7 +621,7 @@ echo "********Checking session_timeout by passing invalid parameters testing is 
 echo "${txtblue}Test Case:23********Filling the valid parameters in the config.yml file testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_filled_config_file
-sudo ./install.sh | tee "$actual_output_file"
+sudo ./upgrade.sh | tee "$actual_output_file"
 output=$(grep -c "CQube upgraded successfully!!" $actual_output_file)
 if [ $output = 1 ]
 then
