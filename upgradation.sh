@@ -645,7 +645,7 @@ echo "********Checking the gunicorn services testing is completed***************
 
 echo "${txtblue}Test Case:25********Checking the postgres services testing is started****************""${txtrst}" >> "$test_result_file"
 sudo systemctl status postgresql.service | tee "$services_output_file"
-output=$(grep -c "running" $services_output_file)
+output=$(grep -c "active (exited)" $services_output_file)
 if [ $output = 1 ]
 then
   echo "${txtgreen}postgres services is running""${txtrst}" >> "$test_result_file"

@@ -607,7 +607,7 @@ echo "********Checking the gunicorn services testing is completed***************
 
 echo "${txtblue}Test Case:23********Checking the postgres services testing is started****************""${txtrst}" >> "$test_result_file"
 sudo systemctl status postgresql.service | tee "$services_output_file"
-output=$(grep -c "running" $services_output_file)
+output=$(grep -c "active (exited)" $services_output_file)
 if [ $output = 1 ]
 then
   echo "${txtgreen}postgres services is running""${txtrst}" >> "$test_result_file"
@@ -673,7 +673,7 @@ echo "********Checking the prometheus services testing is completed*************
 
 echo "${txtblue}Test Case:29********Checking the nifi services testing is started****************""${txtrst}" >> "$test_result_file"
 sudo netstat -ntlp | grep 8096 | tee "$services_output_file"
-output=$(grep -c "127.0.0.1:8096" $services_output_file)
+output=$(grep -c "8096" $services_output_file)
 if [ $output = 1 ]
 then
   echo "${txtgreen}nifi services is running""${txtrst}" >> "$test_result_file"
