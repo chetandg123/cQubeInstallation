@@ -2,6 +2,7 @@
 config_file="./config.yml"
 remove_config_file="./config.yml"
 actual_output_file="../../../Logs/installation_logs.txt"
+services_output_file="../../../Logs/services_logs.txt"
 config_template="./config.yml.template"
 new_config_file="./config.yml"
 filled_config_file="../../../ConfigFiles/Fill_installation_config_file.yml"
@@ -591,5 +592,114 @@ else
   echo "${txtred}cQube is not installed successfully""${txtrst}" >> "$test_result_file"
 fi
 echo "********Filling the valid parameters in the config.yml file testing is completed****************" >> "$test_result_file"
+
+
+echo "${txtblue}Test Case:22********Checking the gunicorn services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo systemctl status gunicorn | tee "$services_output_file"
+output=$(grep -c "running" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}gunicorn services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}gunicorn services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the gunicorn services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:23********Checking the postgres services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo systemctl status postgresql.service | tee "$services_output_file"
+output=$(grep -c "running" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}postgres services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}postgres services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the postgres services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:24********Checking the keycloak services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo systemctl status keycloak.service | tee "$services_output_file"
+output=$(grep -c "running" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}keycloak services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}keycloak services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the keycloak services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:25********Checking the grafana services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo systemctl status grafana-server.service | tee "$services_output_file"
+output=$(grep -c "running" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}grafana services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}grafana services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the grafana services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:26********Checking the kong services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo systemctl status kong.service | tee "$services_output_file"
+output=$(grep -c "running" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}kong services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}kong services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the kong services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:27********Checking the node_exporter services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo systemctl status node_exporter.service | tee "$services_output_file"
+output=$(grep -c "running" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}node_exporter services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}node_exporter services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the node_exporter services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:28********Checking the prometheus services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo systemctl status prometheus.service | tee "$services_output_file"
+output=$(grep -c "running" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}prometheus services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}prometheus services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the prometheus services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:29********Checking the nifi services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo netstat -ntlp | grep 8096 | tee "$services_output_file"
+output=$(grep -c "127.0.0.1:8096" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}nifi services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}nifi services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the nifi services testing is completed****************" >> "$test_result_file"
+
+echo "${txtblue}Test Case:30********Checking the angular services testing is started****************""${txtrst}" >> "$test_result_file"
+sudo netstat -ntlp | grep 3000 | tee "$services_output_file"
+output=$(grep -c "3000" $services_output_file)
+if [ $output = 1 ]
+then
+  echo "${txtgreen}angular services is running""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}angular services is not running""${txtrst}" >> "$test_result_file"
+fi
+echo "********Checking the angular services testing is completed****************" >> "$test_result_file"
+
+
+
+
+
+
+
+
+
 
 
