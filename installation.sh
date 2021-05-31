@@ -584,7 +584,7 @@ echo "${txtblue}Test Case:21********Filling the valid parameters in the config.y
 remove_config_file
 copy_filled_config_file
 sudo ./install.sh | tee "$actual_output_file"
-output=$(grep -c "CQube installed successfully!!" $actual_output_file)
+output=$(grep -c "cQube installed successfully!!" $actual_output_file)
 if [ $output = 1 ]
 then
   echo "${txtgreen}cQube installed successfully""${txtrst}" >> "$test_result_file"
